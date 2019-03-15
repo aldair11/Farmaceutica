@@ -250,29 +250,32 @@ public class frmregistro extends javax.swing.JFrame {
     public void eliminar(int id){
         Regitro productos=null;
         for (int i = 0; i < this.productos.size(); i++) {
-            if(this.productos.get(i).getId()==id){
-                productos=this.productos.get(i);
+            final Regitro productos1 = this.productos.get(i);
+            if(productos1.getId()==id){
+                productos= productos1;
             }
         }
         this.productos.remove(productos);
         JOptionPane.showMessageDialog(null, "Producto Eliminado");
         txtid.setText("");
         }
-    public void actualizar(){
+
+    public void actualizar() {
         int cambiar = jTable1.getSelectedRow();
-        productos.get(cambiar).setId(Integer.parseInt(txtid.getText()));
-        productos.get(cambiar).setNombre(txtnombre.getText());
-        productos.get(cambiar).setDescripcion(txtdes.getText());
-        productos.get(cambiar).setPrecioCompra(Double.parseDouble(txtpreciocompra.getText()));
-        productos.get(cambiar).setPrecioVenta(Double.parseDouble(txtprecioventa.getText()));
-        productos.get(cambiar).setCantidad(Integer.parseInt(txtcan.getText()));
+        final Regitro regitro = productos.get(cambiar);
+        regitro.setId(Integer.parseInt(txtid.getText()));
+        regitro.setNombre(txtnombre.getText());
+        regitro.setDescripcion(txtdes.getText());
+        regitro.setPrecioCompra(Double.parseDouble(txtpreciocompra.getText()));
+        regitro.setPrecioVenta(Double.parseDouble(txtprecioventa.getText()));
+        regitro.setCantidad(Integer.parseInt(txtcan.getText()));
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setNumRows(0);
-        for(Regitro g: productos){
+        for (Regitro g : productos) {
             modelo.addRow(new Object[]{
-                g.getId(),g.getNombre(), g.getDescripcion(),g.getPrecioCompra(),g.getPrecioVenta(),g.getCantidad()});
-            }
+                    g.getId(), g.getNombre(), g.getDescripcion(), g.getPrecioCompra(), g.getPrecioVenta(), g.getCantidad()});
         }
+    }
            
  
     public void agregar() {
@@ -280,10 +283,8 @@ public class frmregistro extends javax.swing.JFrame {
         int cant =0;
         double compra = 0;
         double venta = 0;
-        double estatura = 0;
         String nombre = null;
         String descrip = null;
-        Regitro reg;
         if (txtid.getText().equals("") || (txtnombre.getText().equals("")) || (txtdes.getText().equals("")) || (txtpreciocompra.getText().equals("")) || (txtprecioventa.getText().equals("")) || (txtcan.getText().equals(""))) {
             JOptionPane.showMessageDialog(null, "Llene el campo vacio");
         } else {
@@ -336,12 +337,13 @@ public class frmregistro extends javax.swing.JFrame {
         String matriz[][] = new String[productos.size()][6];
 
         for (int i = 0; i < productos.size(); i++) {
-            matriz[i][0] = Integer.toString(productos.get(i).getId());
-            matriz[i][1] = productos.get(i).getNombre();
-            matriz[i][2] = productos.get(i).getDescripcion();
-            matriz[i][3] = Double.toString(productos.get(i).getPrecioCompra());
-            matriz[i][4] = Double.toString(productos.get(i).getPrecioVenta());
-            matriz[i][5] = Integer.toString(productos.get(i).getCantidad());
+            final Regitro regitro = productos.get(i);
+            matriz[i][0] = Integer.toString(regitro.getId());
+            matriz[i][1] = regitro.getNombre();
+            matriz[i][2] = regitro.getDescripcion();
+            matriz[i][3] = Double.toString(regitro.getPrecioCompra());
+            matriz[i][4] = Double.toString(regitro.getPrecioVenta());
+            matriz[i][5] = Integer.toString(regitro.getCantidad());
         }
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 matriz,
